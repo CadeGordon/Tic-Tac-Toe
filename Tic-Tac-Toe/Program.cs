@@ -7,7 +7,8 @@ namespace Tic_Tac_Toe
         //test
         static void Main(string[] args)
         {
-
+            Game game = new Game();
+            game.Run();
         }
 
             
