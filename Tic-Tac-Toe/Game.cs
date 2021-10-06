@@ -58,13 +58,51 @@ namespace Tic_Tac_Toe
             
         }
 
-        public static int GetInput()
+        public static int GetInput(string description, params string[] options)
         {
-            int choice = -1;
-                if (!int.TryParse(Console.ReadLine(), out choice))
-                choice = -1;
+            string input = "";
+            int inputRecieved = -1;
 
-            return choice;
+            while (inputRecieved == -1)
+            {
+                //Print options
+                Console.WriteLine(description);
+                for (int i = 0; i < options.Length; i++)
+                {
+                    Console.WriteLine((i + 1) + ". " + options[i]);
+                }
+                Console.WriteLine("> ");
+
+                //get input from player
+                input = Console.ReadLine();
+
+                //If the player typed an int...
+                if (int.TryParse(input, out inputRecieved))
+                {
+                    //...decrement the input and check if it's within the bounds of the array
+                    inputRecieved--;
+                    if (inputRecieved < 0 || inputRecieved >= options.Length)
+                    {
+                        //set input recieved to be the default value
+                        inputRecieved = -1;
+                        //display error message
+                        Console.WriteLine("Invalid Input");
+                        Console.ReadKey(true);
+                    }
+                }
+                //if the player didnt type and int
+                else
+                {
+                    //Set input recieved to be the default value
+                    inputRecieved = -1;
+                    Console.WriteLine("inavlid input");
+                    Console.ReadKey(true);
+                }
+
+                Console.Clear();
+            }
+
+            return inputRecieved;
         }
     }
 }

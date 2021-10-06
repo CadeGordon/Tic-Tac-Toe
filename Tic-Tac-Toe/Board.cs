@@ -19,7 +19,9 @@ namespace Tic_Tac_Toe
             _player1Token = 'x';
             _player2Token = 'o';
             _currentToken = _player1Token;
-            _board = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
+            _board = new char[3, 3] { { '1', '2', '3' }, 
+                                      { '4', '5', '6' }, 
+                                      { '7', '8', '9' } };
         }
 
         /// <summary>
@@ -30,14 +32,45 @@ namespace Tic_Tac_Toe
         /// </summary>
         public void Update()
         {
-            if (Game.GetInput() == 1)
+            int choice = Game.GetInput("Choose your space to fill", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+                
+            if (choice == 0)
             {
                 _board[0, 0] = _currentToken;
             }
-            else if (Game.GetInput() == 2)
+            else if (choice == 1)
             {
                 _board[0, 1] = _currentToken;
             }
+            else if (choice == 2)
+            {
+                _board[0, 2] = _currentToken;
+            }
+            else if (choice == 3)
+            {
+                _board[1, 0] = _currentToken;
+            }
+            else if (choice == 4)
+            {
+                _board[1, 1] = _currentToken;
+            }
+            else if (choice == 5)
+            {
+                _board[1, 2] = _currentToken;
+            }
+            else if (choice == 6)
+            {
+                _board[2, 0] = _currentToken;
+            }
+            else if (choice == 7)
+            {
+                _board[2, 1] = _currentToken;
+            }
+            else if (choice == 8)
+            {
+                _board[2, 2] = _currentToken;
+            }
+
 
             if (_currentToken == _player1Token)
                 _currentToken = _player2Token;
@@ -52,9 +85,9 @@ namespace Tic_Tac_Toe
         public void Draw()
         {
             Console.WriteLine(_board[0, 0] + " | " + _board[0, 1] + " | " + _board[0, 2] + "\n" +
-                                                  "________________ \n" +
+                                                  "_________ \n" +
                               _board[1, 0] + " | " + _board[1, 1] + " | " + _board[1, 2] + "\n" +
-                                                  "_________________ \n" +                   
+                                                  "_________ \n" +                   
                               _board[2, 0] + " | " + _board[2, 1] + " | " + _board[2, 2]) ;
 
 
@@ -62,7 +95,7 @@ namespace Tic_Tac_Toe
 
         public void End()
         {
-
+            Console.WriteLine("Congrats you just played tic-tac-toe");
         }
 
         /// <summary>
@@ -84,6 +117,20 @@ namespace Tic_Tac_Toe
         /// <returns></returns>
         private bool CheckWinner(char token)
         {
+            //check rows
+            if (_board[0, 0] == token && _board[0, 1] == token && _board[0, 2] == token) { return true; }
+            if (_board[1, 0] == token && _board[1, 1] == token && _board[1, 2] == token) { return true; }
+            if (_board[2, 0] == token && _board[2, 1] == token && _board[2, 2] == token) { return true; }
+
+            //check colums
+            if (_board[0, 0] == token && _board[1, 0] == token && _board[2, 0] == token) { return true; }
+            if (_board[0, 1] == token && _board[1, 1] == token && _board[2, 1] == token) { return true; }
+            if (_board[0, 2] == token && _board[1, 2] == token && _board[2, 2] == token) { return true; }
+
+            //check diagonal
+            if (_board[0, 0] == token && _board[1, 1] == token && _board[2, 2] == token) { return true; }
+            if (_board[0, 2] == token && _board[1, 1] == token && _board[2, 0] == token) { return true; }
+
             return false;
         }
 
